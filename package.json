@@ -1,0 +1,51 @@
+{
+    "author": "Steven Olmsted <steven.olm@gmail.com>",
+    "bugs": "https://github.com/solmsted/slexer/issues",
+    "description": "A simple streamable lexer.  It transforms text into token objects.",
+    "engines": {
+        "node": "~0.10.17"
+    },
+    "keywords": [
+        "compile",
+        "compiler",
+        "language",
+        "lex",
+        "lexeme",
+        "lexer",
+        "lexicon",
+        "operator",
+        "parse",
+        "parser",
+        "program",
+        "programming",
+        "simple",
+        "slexer",
+        "slexy",
+        "solmsted",
+        "stream",
+        "streamable",
+        "streaming",
+        "streamy",
+        "syntax",
+        "token",
+        "tokens",
+        "tool",
+        "tools",
+        "translate",
+        "translater",
+        "translation"
+    ],
+    "homepage": "https://github.com/solmsted/slexer",
+    "licenses": [{
+        "type": "Software Attribution License",
+        "url": "https://github.com/solmsted/slexer/blob/master/LICENSE"
+    }],
+    "main": "index.js",
+    "name": "slexer",
+    "private": true,
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/solmsted/slexer.git"
+    },
+    "version": "0.0.0"
+}
