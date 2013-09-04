@@ -42,7 +42,6 @@
     }],
     "main": "index.js",
     "name": "slexer",
-    "private": true,
     "repository": {
         "type": "git",
         "url": "https://github.com/solmsted/slexer.git"
