@@ -16,101 +16,61 @@ lexeme was found in the text.  For example, given the text
 `'abcdefghijklmnopqrstuvwxyz'` and the lexicon `['a', 'e', 'i', 'o', 'u']`,
 Slexer will produce the following tokens:
 
-* ```js
-  {
-      column: 0,
-      lexeme: 'a',
-      line: 0,
-      offset: 0
-  }
-  ```
-
-* ```js
-  {
-      column: 1,
-      lexeme: 'bcd',
-      line: 0,
-      offset: 1
-  }
-  ```
-
-* ```js
-  {
-      column: 4,
-      lexeme: 'e',
-      line: 0,
-      offset: 4
-  }
-  ```
-
-* ```js
-  {
-      column: 5,
-      lexeme: 'fgh',
-      line: 0,
-      offset: 5
-  }
-  ```
-
-* ```js
-  {
-      column: 8,
-      lexeme: 'i',
-      line: 0,
-      offset: 8
-  }
-  ```
-
-* ```js
-  {
-      column: 9,
-      lexeme: 'jklmn',
-      line: 0,
-      offset: 9
-  }
-  ```
-
-* ```js
-  {
-      column: 14,
-      lexeme: 'o',
-      line: 0,
-      offset: 14
-  }
-  ```
-
-* ```js
-  {
-      column: 15,
-      lexeme: 'pqrst',
-      line: 0,
-      offset: 15
-  }
-  ```
-
-* ```js
-  {
-      column: 20,
-      lexeme: 'u',
-      line: 0,
-      offset: 20
-  }
-  ```
-
-* ```js
-  {
-      column: 21,
-      lexeme: 'vwxyz',
-      line: 0,
-      offset: 21
-  }
-  ```
-
-* ```js
-  {
-      end: true
-  }
-  ```
+```js
+[{
+    column: 0,
+    lexeme: 'a',
+    line: 0,
+    offset: 0
+}, {
+    column: 1,
+    lexeme: 'bcd',
+    line: 0,
+    offset: 1
+}, {
+    column: 4,
+    lexeme: 'e',
+    line: 0,
+    offset: 4
+}, {
+    column: 5,
+    lexeme: 'fgh',
+    line: 0,
+    offset: 5
+}, {
+    column: 8,
+    lexeme: 'i',
+    line: 0,
+    offset: 8
+}, {
+    column: 9,
+    lexeme: 'jklmn',
+    line: 0,
+    offset: 9
+}, {
+    column: 14,
+    lexeme: 'o',
+    line: 0,
+    offset: 14
+}, {
+    column: 15,
+    lexeme: 'pqrst',
+    line: 0,
+    offset: 15
+}, {
+    column: 20,
+    lexeme: 'u',
+    line: 0,
+    offset: 20
+}, {
+    column: 21,
+    lexeme: 'vwxyz',
+    line: 0,
+    offset: 21
+}, {
+    end: true
+}]
+```
 
 The final token is unique in order to mark the end of the text.
 
