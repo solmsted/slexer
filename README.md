@@ -77,18 +77,18 @@ The final token is unique in order to mark the end of the text.
 Usage
 -----
 
-Begin by requiring the `slexer` module.
+Begin by importing the `slexer` module.
 
 ```js
-var Slexer = require('slexer').Slexer;
+import Slexer from 'slexer';
 ```
 
-The Slexer constructor requires an options object with a `lexicon` property.
-The lexicon is defined by an array of strings.  For optimal performance, the
-lexicon should not contain duplicates.
+The Slexer constructor requires a config object with a `lexicon` property.  The
+lexicon is defined by an array of strings.  For optimal performance, the lexicon
+should not contain duplicates.
 
 ```js
-var slexer = new Slexer({
+const slexer = Slexer({
     lexicon: [
         'this',
         'is',
@@ -103,14 +103,14 @@ var slexer = new Slexer({
 ```
 
 By default, Slexer uses `'\n'` to identify line endings.  This can be overridden
-by specifying a `lineEnding` property on the options object.
+by specifying a `lineEnding` property on the config object.
 
 Slexer is a `Readable` stream.  When the stream becomes readable, tokens can be
 obtained through the `read` method.
 
 ```js
-slexer.on('readable', function () {
-    var token = slexer.read();
+slexer.on('readable', () => {
+    let token = slexer.read();
 
     // token will be null when the stream is no longer readable.  If the stream
     // has not ended, the readable event will be fired again later and reading
@@ -129,7 +129,11 @@ case, it is recommended to create a `Readable` stream to read the file and pipe
 its output into Slexer.
 
 ```js
-require('fs').createReadStream('path/to/file').pipe(slexer);
+import {
+    createReadStream
+} from 'fs';
+
+createReadStream('path/to/file').pipe(slexer);
 ```
 
 If you happen to already have a string containing the entire input text, you can
