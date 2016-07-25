@@ -1,9 +1,52 @@
 {
     "author": "Steven Olmsted <steven.olm@gmail.com>",
+    "babel": {
+        "plugins": [
+            "transform-runtime"
+        ],
+        "presets": [
+            "es2015-node5"
+        ],
+        "sourceMaps": "inline"
+    },
     "bugs": "https://github.com/solmsted/slexer/issues",
+    "dependencies": {
+        "babel-runtime": "~6.9.1",
+        "isotropic-asap": "~0.2.0",
+        "isotropic-make": "~0.2.0"
+    },
     "description": "A simple streamable lexer.  It transforms text into token objects.",
+    "devDependencies": {
+        "babel-cli": "~6.11.4",
+        "babel-istanbul": "~0.11.0",
+        "babel-plugin-transform-runtime": "~6.9.0",
+        "babel-preset-es2015-node5": "~1.2.0",
+        "chai": "~3.5.0",
+        "eslint": "~3.0.1",
+        "in-publish": "~2.0.0",
+        "eslint-config-isotropic": "~0.2.0",
+        "mocha": "~2.5.3"
+    },
     "engines": {
-        "node": "~0.10.17"
+        "node": "^6.2.2",
+        "npm": "^3.9.5"
+    },
+    "eslintConfig": {
+        "env": {
+            "es6": true,
+            "node": true
+        },
+        "extends": "isotropic",
+        "parserOptions": {
+            "ecmaFeatures": {
+                "experimentalObjectRestSpread": true,
+                "globalReturn": false,
+                "jsx": false
+            },
+            "ecmaVersion": 6,
+            "sourceType": "module"
+        },
+        "root": true
     },
     "keywords": [
         "compile",
@@ -36,15 +79,18 @@
         "translation"
     ],
     "homepage": "https://github.com/solmsted/slexer",
-    "licenses": [{
-        "type": "Software Attribution License",
-        "url": "https://github.com/solmsted/slexer/blob/master/LICENSE"
-    }],
-    "main": "index.js",
+    "license": "SEE LICENSE IN LICENSE.md",
+    "main": "lib/slexer.js",
     "name": "slexer",
-    "repository": {
-        "type": "git",
-        "url": "https://github.com/solmsted/slexer.git"
+    "repository": "solmsted/slexer",
+    "scripts": {
+        "build": "babel js -d lib",
+        "lint": "eslint js test test/js",
+        "posttest": "[ -z \"$npm_config_coverage\" ] || babel-istanbul check-coverage --branches 90 --functions 90 --lines 90 --statements 90",
+        "prebuild": "rm -rf lib",
+        "prepublish": "not-in-install && npm test --coverage && npm run build",
+        "pretest": "npm run lint",
+        "test": "babel-node ./node_modules/.bin/babel-istanbul test _mocha"
     },
     "version": "0.0.1"
 }
