@@ -1,49 +1,32 @@
-import {
-    describe,
-    it
-} from 'mocha';
+import _chai from 'isotropic-dev-dependencies/lib/chai.js';
+import _fs from 'node:fs';
+import _mocha from 'isotropic-dev-dependencies/lib/mocha.js';
+import _Slexer from '../js/slexer.js';
+import _stream from 'node:stream';
 
-import {
-    createReadStream
-} from 'fs';
+_mocha.describe('Slexer', () => {
+    _mocha.it('should be a constructor function', () => {
+        _chai.expect(_Slexer).to.be.a('function');
 
-import {
-    expect
-} from 'chai';
+        const slexer = new _Slexer();
 
-import {
-    join
-} from 'path';
-
-import Slexer from '../js/slexer';
-
-import {
-    Transform
-} from 'stream';
-
-describe('Slexer', () => {
-    it('should be a constructor function', () => {
-        expect(Slexer).to.be.a('function');
-
-        const slexer = new Slexer();
-
-        expect(slexer).to.be.an('object');
-        expect(slexer).to.be.an.instanceOf(Slexer);
-        expect(slexer).to.be.an.instanceOf(Transform);
+        _chai.expect(slexer).to.be.an('object');
+        _chai.expect(slexer).to.be.an.instanceOf(_Slexer);
+        _chai.expect(slexer).to.be.an.instanceOf(_stream.Transform);
     });
 
-    it('should be a facory function', () => {
-        expect(Slexer).to.be.a('function');
+    _mocha.it('should be a facory function', () => {
+        _chai.expect(_Slexer).to.be.a('function');
 
-        const slexer = Slexer();
+        const slexer = _Slexer();
 
-        expect(slexer).to.be.an('object');
-        expect(slexer).to.be.an.instanceOf(Slexer);
-        expect(slexer).to.be.an.instanceOf(Transform);
+        _chai.expect(slexer).to.be.an('object');
+        _chai.expect(slexer).to.be.an.instanceOf(_Slexer);
+        _chai.expect(slexer).to.be.an.instanceOf(_stream.Transform);
     });
 
-    it('should lex text', callbackFunction => {
-        const slexer = Slexer({
+    _mocha.it('should lex text', callbackFunction => {
+        const slexer = _Slexer({
                 lexicon: [
                     'a',
                     'e',
@@ -65,7 +48,7 @@ describe('Slexer', () => {
                     continue;
                 }
 
-                expect(tokens).to.deep.equal([{
+                _chai.expect(tokens).to.deep.equal([{
                     column: 0,
                     lexeme: 'a',
                     line: 0,
@@ -127,15 +110,16 @@ describe('Slexer', () => {
         slexer.end('abcdefghijklmnopqrstuvwxyz');
     });
 
-    it('should handle lexemes that are a superset of other lexemes', callbackFunction => {
+    _mocha.it('should handle lexemes that are a superset of other lexemes', callbackFunction => {
         const alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFG'.split(''),
-            slexer = Slexer({
+            slexer = _Slexer({
                 lexicon: alphabet.slice(0, 26).reduce((lexicon, character, index) => {
                     for (let i = 1; i <= 8; i += 1) {
                         const fragment = alphabet.slice(index, index + i).join('');
 
                         lexicon.push(fragment, fragment.toLowerCase());
                     }
+
                     return lexicon;
                 }, [])
             }),
@@ -152,7 +136,7 @@ describe('Slexer', () => {
                     continue;
                 }
 
-                expect(tokens).to.deep.equal([{
+                _chai.expect(tokens).to.deep.equal([{
                     column: 0,
                     lexeme: 'ab',
                     line: 0,
@@ -616,6 +600,6 @@ describe('Slexer', () => {
             }
         });
 
-        createReadStream(join(__dirname, 'documents', 'alphabet.txt')).pipe(slexer);
+        _fs.createReadStream(`${import.meta.dirname}/documents/alphabet.txt`).pipe(slexer);
     });
 });

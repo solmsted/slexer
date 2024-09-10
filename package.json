@@ -1,53 +1,22 @@
 {
     "author": "Steven Olmsted <steven.olm@gmail.com>",
-    "babel": {
-        "plugins": [
-            "transform-runtime"
-        ],
-        "presets": [
-            "es2015-node5"
-        ],
-        "sourceMaps": "inline"
-    },
     "bugs": "https://github.com/solmsted/slexer/issues",
     "dependencies": {
-        "babel-runtime": "~6.9.1",
-        "isotropic-asap": "~0.2.0",
-        "isotropic-make": "~0.2.0"
+        "isotropic-make": "~0.13.0",
+        "isotropic-later": "~0.13.0"
     },
-    "description": "A simple streamable lexer.  It transforms text into token objects.",
+    "description": "A simple streamable lexer. It transforms text into token objects.",
     "devDependencies": {
-        "babel-cli": "~6.11.4",
-        "babel-istanbul": "~0.11.0",
-        "babel-plugin-transform-runtime": "~6.9.0",
-        "babel-preset-es2015-node5": "~1.2.0",
-        "chai": "~3.5.0",
-        "eslint": "~3.0.1",
-        "in-publish": "~2.0.0",
-        "eslint-config-isotropic": "~0.2.0",
-        "mocha": "~2.5.3"
+        "eslint": "~9.8.0",
+        "isotropic-dev-dependencies": "~0.3.0"
     },
     "engines": {
-        "node": "^6.2.2",
-        "npm": "^3.9.5"
+        "node": "^22.5.1",
+        "npm": "^10.8.2"
     },
-    "eslintConfig": {
-        "env": {
-            "es6": true,
-            "node": true
-        },
-        "extends": "isotropic",
-        "parserOptions": {
-            "ecmaFeatures": {
-                "experimentalObjectRestSpread": true,
-                "globalReturn": false,
-                "jsx": false
-            },
-            "ecmaVersion": 6,
-            "sourceType": "module"
-        },
-        "root": true
-    },
+    "files": [
+        "lib"
+    ],
     "keywords": [
         "compile",
         "compiler",
@@ -82,15 +51,16 @@
     "license": "SEE LICENSE IN LICENSE.md",
     "main": "lib/slexer.js",
     "name": "slexer",
-    "repository": "solmsted/slexer",
+    "repository": "github:solmsted/slexer",
     "scripts": {
-        "build": "babel js -d lib",
-        "lint": "eslint js test test/js",
-        "posttest": "[ -z \"$npm_config_coverage\" ] || babel-istanbul check-coverage --branches 90 --functions 90 --lines 90 --statements 90",
-        "prebuild": "rm -rf lib",
-        "prepublish": "not-in-install && npm test --coverage && npm run build",
+        "build": "cross-env BABEL_ENV=node babel --config-file ./node_modules/isotropic-dev-dependencies/config/babel.json --delete-dir-on-start js -d lib",
+        "lint": "eslint js test",
+        "postprepare": "node ./node_modules/isotropic-dev-dependencies/lib/install-git-hooks.js",
+        "posttest": "[ -z \"$npm_config_coverage\" ] || c8 -c ./node_modules/isotropic-dev-dependencies/config/c8.json check-coverage --branches 88 --lines 90 --statements 90",
+        "prepare": "npm run build",
         "pretest": "npm run lint",
-        "test": "babel-node ./node_modules/.bin/babel-istanbul test _mocha"
+        "test": "cross-env BABEL_ENV=test c8 -c ./node_modules/isotropic-dev-dependencies/config/c8.json mocha --import=isotropic-dev-dependencies/lib/register-babel-loader.js"
     },
-    "version": "0.1.0"
+    "type": "module",
+    "version": "1.0.0"
 }

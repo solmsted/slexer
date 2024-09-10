@@ -1,11 +1,8 @@
-import _asap from 'isotropic-asap';
+import _later from 'isotropic-later';
 import _make from 'isotropic-make';
+import _stream from 'node:stream';
 
-import {
-    Transform as _Transform
-} from 'stream';
-
-const _Slexer = _make(_Transform, {
+export default _make(_stream.Transform, {
     _flush (callbackFunction) {
         if (this._remainder) {
             this._lex(this._remainder)._remainder = '';
@@ -15,7 +12,7 @@ const _Slexer = _make(_Transform, {
             });
         }
 
-        _asap(callbackFunction);
+        _later.asap(callbackFunction);
     },
     _init ({
         lexicon = [],
@@ -28,8 +25,8 @@ const _Slexer = _make(_Transform, {
                 maximumLexemeLength = lexeme.length;
             }
 
-            return lexeme.replace(/[$()*+-./?[\\\]^{|}]/g, '\\$&');
-        }).sort((a, b) => b.length - a.length).join(')|(?:')}))`, 'g');
+            return lexeme.replace(/[!#$%&\(\)*+,\-.\/:;<=>?@\[\\\]^`\{\|\}~]/gv, '\\$&');
+        }).sort((a, b) => b.length - a.length).join(')|(?:')}))`, 'gv');
 
         this._line = 0;
 
@@ -43,7 +40,7 @@ const _Slexer = _make(_Transform, {
 
         this._remainder = '';
 
-        Reflect.apply(_Slexer.super_, this, [{
+        Reflect.apply(_stream.Transform, this, [{
             decodeStrings: true,
             objectMode: true
         }]);
@@ -148,8 +145,6 @@ const _Slexer = _make(_Transform, {
         }
 
         this._lex(text, true);
-        _asap(callbackFunction);
+        _later.asap(callbackFunction);
     }
 });
-
-export default _Slexer;
