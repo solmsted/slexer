@@ -131,7 +131,7 @@ its output into Slexer.
 ```js
 import {
     createReadStream
-} from 'fs';
+} from 'node:fs';
 
 createReadStream('path/to/file').pipe(slexer);
 ```
