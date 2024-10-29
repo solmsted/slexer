@@ -25,7 +25,7 @@ export default _make(_stream.Transform, {
                 maximumLexemeLength = lexeme.length;
             }
 
-            return lexeme.replace(/[!#$%&\(\)*+,\-.\/:;<=>?@\[\\\]^`\{\|\}~]/gv, '\\$&');
+            return lexeme.replace(/[$\(\)*+.\/?\[\\\]^\{\|\}]/gv, '\\$&');
         }).sort((a, b) => b.length - a.length).join(')|(?:')}))`, 'gv');
 
         this._line = 0;

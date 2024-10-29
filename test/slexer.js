@@ -602,4 +602,44 @@ _mocha.describe('Slexer', () => {
 
         _fs.createReadStream(`${import.meta.dirname}/documents/alphabet.txt`).pipe(slexer);
     });
+
+    _mocha.it('should allow symbols in the lexicon', callbackFunction => {
+        const stringWithSymbols = '!"#$%&\'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~',
+
+            lexicon = stringWithSymbols.split(''),
+            slexer = _Slexer({
+                lexicon
+            }),
+            tokens = [];
+
+        slexer.on('readable', () => {
+            let token = slexer.read();
+
+            while (token) {
+                tokens.push(token);
+
+                if (!token.end) {
+                    token = slexer.read();
+                    continue;
+                }
+
+                _chai.expect(tokens).to.deep.equal([
+                    ...lexicon.map((lexeme, index) => ({
+                        column: index,
+                        lexeme,
+                        line: 0,
+                        offset: index
+                    })),
+                    {
+                        end: true
+                    }
+                ]);
+
+                callbackFunction();
+                return;
+            }
+        });
+
+        slexer.end(stringWithSymbols);
+    });
 });
